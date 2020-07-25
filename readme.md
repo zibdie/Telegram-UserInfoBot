@@ -79,7 +79,7 @@ python ./bot.py
 ```
 
 ## Screenshots
-![](demo-screenshot.jpg)
+![](https://i.imgur.com/N5jJBJV.png)
 
 ## See It Live!
 
