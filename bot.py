@@ -110,7 +110,7 @@ def forwardinfo(update, context):
                     z.write(os.path.join(foldPath, 'photos', file))
 
             context.bot.send_message(chat_id=update.message.chat_id, text="*Total Number of Profile Photo(s)*: {}".format(userphotos.total_count), parse_mode=telegram.ParseMode.MARKDOWN)
-            context.bot.send_message(chat_id=update.message.chat_id, text="*Current Photo*", parse_mode=telegram.ParseMode.MARKDOWN)
+            context.bot.send_message(chat_id=update.message.chat_id, text="*Current Photo*", parse_mode=telegram.ParseMode.MARKDOWN, disable_notification=True)
             context.bot.send_chat_action(chat_id=update.message.chat_id, action=ChatAction.TYPING)
 
             keyboard = [
@@ -119,12 +119,12 @@ def forwardinfo(update, context):
             reply_markup = InlineKeyboardMarkup(keyboard)
 
             with open(os.path.join(foldPath, 'photos', '0.jpg'), 'rb') as p:
-                context.bot.send_photo(chat_id=update.message.chat_id, photo=p)
+                context.bot.send_photo(chat_id=update.message.chat_id, photo=p, disable_notification=True)
 
             with open(os.path.join(foldPath, f"{randName}.zip"), 'rb') as z:
-                context.bot.send_document(chat_id=update.message.chat_id, document=z)
+                context.bot.send_document(chat_id=update.message.chat_id, document=z, disable_notification=True)
 
-            context.bot.send_message(chat_id=update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN, reply_markup=reply_markup, disable_web_page_preview=True)
+            context.bot.send_message(chat_id=update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN, reply_markup=reply_markup, disable_web_page_preview=True, disable_notification=True)
 
 
         try:
@@ -141,7 +141,7 @@ def currinfo(update, context):
     update.message.reply_text(text="""*UserID*: {}\n*First Name*: {}\n*Last Name*: {}\n*Username*: @{}\n*Is a bot*: {}\n*Link*: https://t.me/{}\n*Language*: {}\n*If you have trouble copying and pasting a specific detail, type the command to get that specific detail (refer to /help for the list) and just copy & paste the message.*""".format(
             userObj.id, userObj.first_name, userObj.last_name, userObj.username, userObj.is_bot, userObj.username, userObj.language_code
     ), parse_mode=telegram.ParseMode.MARKDOWN)
-    context.bot.send_message(chat_id=update.message.chat_id, text="*If you want your profile picture(s), type '/pic'*", parse_mode=telegram.ParseMode.MARKDOWN, disable_web_page_preview=True)
+    context.bot.send_message(chat_id=update.message.chat_id, text="*If you want your profile picture(s), type '/pic'*", parse_mode=telegram.ParseMode.MARKDOWN, disable_web_page_preview=True, disable_notification=True)
 
 
 def userID(update, context):
@@ -176,7 +176,7 @@ def profpic(update, context):
 
     if userphotos.total_count == 0:
         context.bot.send_message(chat_id=update.message.chat_id, text="*Total Number of Profile Photo(s)*: {}".format(userphotos.total_count), parse_mode=telegram.ParseMode.MARKDOWN)
-        context.bot.send_message(chat_id=update.message.chat_id, text="*NOTICE*: If you do have photos, it is probably because you have Privacy Settings enabled which does not allow us to see your profile picture.", parse_mode=telegram.ParseMode.MARKDOWN)
+        context.bot.send_message(chat_id=update.message.chat_id, text="*NOTICE*: If you do have photos, it is probably because you have Privacy Settings enabled which does not allow us to see your profile picture.", parse_mode=telegram.ParseMode.MARKDOWN, disable_notification=True)
     else:
         for photo in userphotos['photos']:
             fileID = photo[-1]['file_id']
@@ -192,7 +192,7 @@ def profpic(update, context):
                 z.write(os.path.join(foldPath, 'photos', file))
 
         context.bot.send_message(chat_id=update.message.chat_id, text="*Total Number of Profile Photo(s)*: {}".format(userphotos.total_count), parse_mode=telegram.ParseMode.MARKDOWN)
-        context.bot.send_message(chat_id=update.message.chat_id, text="*Current Photo*", parse_mode=telegram.ParseMode.MARKDOWN)
+        context.bot.send_message(chat_id=update.message.chat_id, text="*Current Photo*", parse_mode=telegram.ParseMode.MARKDOWN, disable_notification=True)
         context.bot.send_chat_action(chat_id=update.message.chat_id, action=ChatAction.TYPING)
 
         keyboard = [
@@ -202,13 +202,13 @@ def profpic(update, context):
         reply_markup = InlineKeyboardMarkup(keyboard)
 
         with open(os.path.join(foldPath, 'photos', '0.jpg'), 'rb') as p:
-            context.bot.send_photo(chat_id=update.message.chat_id, photo=p)
+            context.bot.send_photo(chat_id=update.message.chat_id, photo=p, disable_notification=True)
 
         with open(os.path.join(foldPath, f"{randName}.zip"), 'rb') as z:
-            context.bot.send_document(chat_id=update.message.chat_id, document=z)
+            context.bot.send_document(chat_id=update.message.chat_id, document=z, disable_notification=True)
 
         #Send the message seperately instead of a caption for the zip, otherwise, the InlineKeyboard will not be able to edit it
-        context.bot.send_message(chat_id=update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN, reply_markup=reply_markup, disable_web_page_preview=True)
+        context.bot.send_message(chat_id=update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN, reply_markup=reply_markup, disable_web_page_preview=True, disable_notification=True)
 
     try:
         shutil.rmtree(foldPath)
@@ -237,7 +237,7 @@ def helpMsg(update, context):
     for i in helplist:
         msg += "{}\n".format(i)
     update.message.reply_text(text=msg)
-    context.bot.send_message(chat_id=update.message.chat_id, text="*If you want to retrieve information about another user, forward a message from that user to me and I will give you their general info, including Telegram ID and profile photo(s)*", parse_mode=telegram.ParseMode.MARKDOWN)
+    context.bot.send_message(chat_id=update.message.chat_id, text="*If you want to retrieve information about another user, forward a message from that user to me and I will give you their general info, including Telegram ID and profile photo(s)*", parse_mode=telegram.ParseMode.MARKDOWN, disable_notification=True)
 
 def echo(update, context):
     """Echo the user message."""
