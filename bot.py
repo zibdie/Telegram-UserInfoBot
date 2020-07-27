@@ -176,6 +176,7 @@ def profpic(update, context):
 
     if userphotos.total_count == 0:
         context.bot.send_message(chat_id=update.message.chat_id, text="*Total Number of Profile Photo(s)*: {}".format(userphotos.total_count), parse_mode=telegram.ParseMode.MARKDOWN)
+        context.bot.send_message(chat_id=update.message.chat_id, text="*NOTICE*: If you do have photos, it is probably because you have Privacy Settings enabled which does not allow us to see your profile picture.", parse_mode=telegram.ParseMode.MARKDOWN)
     else:
         for photo in userphotos['photos']:
             fileID = photo[-1]['file_id']
