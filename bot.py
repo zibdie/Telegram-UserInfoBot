@@ -56,7 +56,7 @@ def ImgurDelete(update, context):
     if requests.request("DELETE", url=f"https://api.imgur.com/3/album/{DeleteHASH}", headers={'Authorization': f'Client-ID {IMGUR_CLIENT}'}, files={}, data={}, allow_redirects=True).json()['success'] == True:
         query.answer()
         query.edit_message_text(
-            text=f"*Imgur Album Deleted - Please give it a minute to fully delete*", parse_mode=telegram.ParseMode.MARKDOWN
+            text=f"*Imgur Album Deletion Request Received - Please give it a minute for the album delete*", parse_mode=telegram.ParseMode.MARKDOWN
         )
     else:
         query.answer()
