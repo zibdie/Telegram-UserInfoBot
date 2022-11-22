@@ -1,0 +1,37 @@
+name: Deploy Live
+
+on:
+  push:
+    branches:
+      - master
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # Based on: https://github.com/cpina/github-action-push-to-another-repository/issues/75
+      - name: Run small fix
+        run: git config --unset-all http.https://github.com/.extraheader
+      - name: Write to secrets
+        run: |
+          sudo mv ./.github/workflows/PushToLive.yml ./.github/workflows/PushToLive.yml.ignore
+          sudo rm -rf ./.git
+          sed -i -e "/.env/d" ./.gitignore
+          touch .env
+          echo 'TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}' >> .env
+          echo 'MODE=${{ secrets.MODE}}' >> .env
+          echo 'WEBHOOK_URL=${{ secrets.WEBHOOK_URL}}' >> .env
+          echo 'DEBUG_USER=${{ secrets.DEBUG_USER}}' >> .env
+          echo 'IMGUR_KEY=${{ secrets.IMGUR_KEY}}' >> .env
+          echo 'LOG=${{ secrets.LOG}}' >> .env
+      - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.GH_EXTERNAL_TOKEN }}
+        with:
+          source-directory: "./"
+          destination-github-username: ${{ secrets.GH_EXTERNAL_USER }}
+          destination-repository-name: ${{ secrets.GH_EXTERNAL_MAIN_REPO }}
+          user-email: ${{ secrets.GH_EXTERNAL_EMAIL }}
+          target-branch: main
