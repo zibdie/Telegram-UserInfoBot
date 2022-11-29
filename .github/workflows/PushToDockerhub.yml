@@ -40,4 +40,4 @@ jobs:
           username: ${{ env.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
           repository: ${{ env.MAIN_REPO_NAME }}
-          readme-filepath: ./README.md
+          readme-filepath: ./readme.md
