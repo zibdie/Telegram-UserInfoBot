@@ -33,7 +33,7 @@ jobs:
           push: true
           tags: ${{ env.OFFICIAL_TAG }}
       - name: Update repo description
-        uses: peter-evans/dockerhub-description@v2
+        uses: peter-evans/dockerhub-description@v3
         with:
           username: ${{ env.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
