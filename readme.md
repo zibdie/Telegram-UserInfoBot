@@ -1,5 +1,7 @@
 # Telegram User Info Bot
 
+[https://github.com/zibdie/Telegram-UserInfoBot](https://github.com/zibdie/Telegram-UserInfoBot)
+
 ## About
 
 Telegram is one of the best instant messaging platforms on the market. From a generous upload/download size of 1.5GB per file to built-in stickers to a well documented API, it is no wonder why Telegram's popularity has exploded.
